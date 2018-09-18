@@ -3,6 +3,11 @@ from flask import request, render_template, g, \
 from jinja2 import TemplateNotFound
 
 
+@login_required
+def serve_dashboard(hashid=None, s=None):
+    return render_template('static_pages/dashboard.html')
+
+
 def default(template='index'):
     template = template if template.endswith('.html') else template+'.html'
     try:

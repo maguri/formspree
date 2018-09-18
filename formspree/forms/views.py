@@ -481,11 +481,6 @@ def confirm_email(nonce):
 
 
 @login_required
-def serve_dashboard(hashid=None, s=None):
-    return render_template('forms/dashboard.html')
-
-
-@login_required
 def export_submissions(hashid, format=None):
     if not current_user.has_feature('dashboard'):
         return jsonerror(402, {'error': "Please upgrade your account."})
