@@ -1,6 +1,7 @@
 from flask import request, render_template, g, \
                   redirect, url_for
 from jinja2 import TemplateNotFound
+from flask_login import login_required
 
 
 @login_required

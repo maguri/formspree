@@ -1,7 +1,9 @@
 import formspree.forms.views as fv
 import formspree.forms.api as fa
 import formspree.users.views as uv
+import formspree.users.api as ua
 import formspree.static_pages.views as sv
+import formspree.static_pages.api as sa
 
 def configure_routes(app):
     app.add_url_rule('/', 'index', view_func=sv.default, methods=['GET'])
@@ -24,7 +26,8 @@ def configure_routes(app):
     app.add_url_rule('/forms/<hashid>', view_func=sv.serve_dashboard, methods=['GET'])
     app.add_url_rule('/forms/<hashid>/<path:s>', view_func=sv.serve_dashboard, methods=['GET'])
     app.add_url_rule('/account', 'account', view_func=sv.serve_dashboard, methods=['GET'])
-    app.add_url_rule('/account/billing', 'billing-dashboard', view_func=sv.serve_dashboard, methods=['GET'])
+    app.add_url_rule('/account/billing', view_func=sv.serve_dashboard, methods=['GET'])
+    app.add_url_rule('/api-int/config', view_func=sa.config, methods=['GET'])
 
     # login stuff
     app.add_url_rule('/register', 'register', view_func=uv.register, methods=['GET', 'POST'])
@@ -44,6 +47,7 @@ def configure_routes(app):
     app.add_url_rule('/account/billing/invoice/<invoice_id>', view_func=uv.invoice, methods=['GET'])
     app.add_url_rule('/account/add-email', 'add-account-email', view_func=uv.add_email, methods=['POST'])
     app.add_url_rule('/account/confirm/<digest>', 'confirm-account-email', view_func=uv.confirm_email, methods=['GET'])
+    app.add_url_rule('/api-int/account', view_func=ua.get_account, methods=['GET'])
 
     # users' forms
     app.add_url_rule('/forms/<hashid>.<format>', view_func=fv.export_submissions, methods=['GET'])
